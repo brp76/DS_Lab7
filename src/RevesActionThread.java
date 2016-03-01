@@ -127,6 +127,23 @@ public class RevesActionThread extends ActionThread
     
     public void reves(int n, int k, Pole from, Pole to, Pole extra1, Pole extra2) {
     	int newK = computeK(n,0);
+    	System.out.println("N: "+n);
+    	System.out.println("K: "+newK);
+    	if (n == 0) {
+    		// Do nothing
+        } else if (n == 1) {
+    		moveDisk(from, to);
+    	} else {
+    		// First step
+    		reves(n-newK,k,from,extra1,to,extra2);
+    		// Second step
+    		towersOfHanoi(newK,from,to,extra2);
+    		// Third step
+    		reves(n-newK,k,extra1,to,extra2,from);
+    	}
+    	
+    	/*
+    	 * int newK = computeK(n,0);
     	if (n == 0) {
     		// Do nothing
         } else if (n == 1) {
@@ -139,6 +156,7 @@ public class RevesActionThread extends ActionThread
     		// Third step
     		reves(n-newK,k,extra1,to,extra2,from);
     	}
+    	 */
     	
     }
     /***************************************************************************

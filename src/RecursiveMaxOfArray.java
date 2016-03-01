@@ -23,11 +23,39 @@ public class RecursiveMaxOfArray
     
     public  int max(int data[], int from, int to)
     {
-        int result = 0;
+    	
+    	if (data == null) {
+    		throw new BadArgumentsForMaxException("Null array");
+    	}
+    	/*System.out.println("//////////");
+    	System.out.println("Size: "+data.length);
+    	System.out.println("From: "+from);
+    	System.out.println(" To : "+to);*/
+    	
+    	if (data.length <= 0) {
+    		throw new BadArgumentsForMaxException("Zero size");
+    	}
+    	
+    	if (from < 0 || to >= data.length) {
+    		throw new BadArgumentsForMaxException("Out of bounds");
+    	}
+    	
+    	if (from > to) {
+    		throw new BadArgumentsForMaxException("Lower bound greater than upper");
+    	}
+    	
+        int range = to - from;
         
-        // ADD YOUR CODE HERE
+        if (range <= 1) {
+        	return Math.max(data[from], data[to]);
+        } else {
+        	int index = (from+to)/2;
+        	int leftMax = max(data, from, index);
+        	int rightMax = max(data, index+1, to);
+        	return Math.max(leftMax, rightMax);
+        }
 
-        return result;
+        //return result;
     }
     
     
