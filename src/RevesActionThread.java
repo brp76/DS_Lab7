@@ -74,7 +74,8 @@ public class RevesActionThread extends ActionThread
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
     	int k = computeK(disks,0);
     	System.out.println("K: "+k);
-    	towersOfHanoi(disks,a,d,b);
+    	reves(disks,k,a,d,b,c);
+    	//towersOfHanoi(disks,a,d,c);
     }
 
     /**
@@ -114,16 +115,32 @@ public class RevesActionThread extends ActionThread
     
     public int computeK(int n, int k) {
     	int temp = (k*(k+1))/2;
-    	System.out.println(temp);
     	if (n <= 2) {
     		return n;
-    	} else if (n <= temp){
+    	} else if (n < temp){
     		return k;
     	} else {
     		return computeK(n, k+1);
     	}
     }
     
+    
+    public void reves(int n, int k, Pole from, Pole to, Pole extra1, Pole extra2) {
+    	int newK = computeK(n,0);
+    	if (n == 0) {
+    		// Do nothing
+        } else if (n == 1) {
+    		moveDisk(from, to);
+    	} else {
+    		// First step
+    		reves(n-newK,k,from,extra1,extra2,to);
+    		// Second step
+    		towersOfHanoi(newK,from,to,extra2);
+    		// Third step
+    		reves(n-newK,k,extra1,to,extra2,from);
+    	}
+    	
+    }
     /***************************************************************************
      * *************************************************************************
      * ALL THE CODE PAST THIS POINT SHOULD NOT BE CHANGED
