@@ -117,7 +117,7 @@ public class RevesActionThread extends ActionThread
     	int temp = (k*(k+1))/2;
     	if (n <= 2) {
     		return n;
-    	} else if (n < temp){
+    	} else if (n <= temp){
     		return k;
     	} else {
     		return computeK(n, k+1);
